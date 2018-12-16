@@ -1,0 +1,6 @@
+tmp/
+config/database.yml
+advertisement_portal_development
+advertisement_portal_test
+log/
+public/
