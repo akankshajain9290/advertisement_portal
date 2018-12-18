@@ -1,18 +1,19 @@
 class BidsController < ApplicationController
 
-  def new
-
-  end
-
   def create
-
+    bid = current_user.bids.build(bid_params)
+    if bid.save
+      flash.keep[:success] = 'Bid created successfully'
+    else
+      flash.keep[:danger] = errors(bid.errors)
+    end
+    redirect_to slots_url
   end
 
-  def edit
+  private
 
+  def bid_params
+    params.require(:bid).permit(:slot_id, :price)
   end
 
-  def update
-
-  end
 end

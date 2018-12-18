@@ -1,41 +1,91 @@
 <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Advertisement Spaces</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Advertisement Spaces Table
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Adv Space Name</th>
-                                        <th>Total Slots</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% @adv_spaces.each do |adv|%>
-                                        <tr class="odd gradeX">
-                                            <td><%= adv.name %></td>
-                                            <td><%= adv.slots.count %></td>
-                                        </tr>
-                                    <% end %>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+     <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Advertisement Spaces</h1>
         </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="dataTables-example_filter" class="dataTables_filter">
+
+               <%#= link_to '<i class="fa fa-plus-square-o" aria-hidden="true"></i>'.html_safe, new_adv_space_path, remote:true %>
+               <div class="panel-body">
+                    <button id= 'createAdvSpace' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-adv-space-form">
+                        Create Advertisement Space
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="create-adv-space-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Enter Advertisement Space Name</h4>
+                                </div>
+                                <%= form_for(:adv_space, url: adv_spaces_url, html: {id: 'advSpaceForm'}) do |f| %>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <%= f.text_field :name, class: "form-control", placeholder: "Adv Space Name", id: 'advSpaceName'%>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <%= f.submit "Create Adv Space", class: 'btn btn-primary', id: 'advSpaceButton'%>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div id = 'provider-table' class="panel panel-default" >
+                <div class="panel-heading">
+                    Advertisement Spaces Table
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="     dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Adv Space Name</th>
+                                <th>Total Slots</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @adv_spaces.each do |adv|%>
+                                <tr class="odd gradeX" id = "row_<%= adv.id %>">
+                                    <td id = "row_<%= adv.id %>_1" > <%= adv.name %> </td>
+                                    <td id = "row_<%= adv.id %>_2" ><%= adv.slots.count %></td>
+                                    <td id = "row_<%= adv.id %>_3" >
+
+                                        <button  class= "editAdvSpace" data-toggle="modal" data-target="#create-adv-space-form"  data-adv-id = '<%= adv.id %>' data-adv-name= '<%= adv.name %>' >
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td id = "row_<%= adv.id %>_4" >
+                                        <%= link_to '<i class="fa fa-trash-o" aria-hidden="true"></i>'.html_safe, adv_space_path(adv.id), method: :delete, remote: true,class: "deleteAdvSpace", data: { confirm: "Are you sure?" }, disabled: !Slot.pre_booked_or_booked(adv.id).any? %>
+
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+</div>

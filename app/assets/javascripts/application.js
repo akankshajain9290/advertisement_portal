@@ -20,6 +20,11 @@
 //= require morris.min
 //= require morris-data
 //= require sb-admin-2
-//= jquery.dataTables.min
-//= datatables-plugins/dataTables.bootstrap.min
-//= dataTables.responsive
+//= require jquery.dataTables.min
+//= require datatables-plugins/dataTables.bootstrap.min
+//= require dataTables.responsive
+//= require provider_dashboard
+//= require provider_slots
+//= require bid
+
+

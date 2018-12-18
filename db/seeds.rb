@@ -11,6 +11,17 @@ Role.organiser
 #                                     Organiser Data
 #######################################################################################################
 organiser = Role.find_by(label: 'organiser')
+
+user = User.create(
+  username: 'organiser',
+  first_name: 'organiser',
+  last_name: 'organiser',
+  email: 'organiser@abc.com',
+  password: '123',
+  organisation: 'Organisation',
+  role_id: organiser.id
+  )
+
 for i in 1..5
   first_name = Faker::Name.first_name
   user = User.new()
@@ -28,6 +39,18 @@ end
 #                                     Agent Data
 #######################################################################################################
 agent = Role.find_by(label: 'agent')
+
+user = User.create(
+        username: 'agent',
+        first_name: 'agent',
+        last_name: 'agent',
+        email: 'agent@abc.com',
+        password: '123',
+        organisation: 'Agent Organisation',
+        role_id: agent.id
+        )
+
+
 for i in 1..5
   first_name = Faker::Name.first_name
   user = User.new()
@@ -46,6 +69,16 @@ end
 #                                     Agent Data
 #######################################################################################################
 provider = Role.find_by(label: 'provider')
+user = User.create(
+        username: 'provider',
+        first_name: 'provider',
+        last_name: 'provider',
+        email: 'provider@abc.com',
+        password: '123',
+        organisation: 'Provider Organisation',
+        role_id: provider.id
+        )
+
 for i in 1..5
   first_name = Faker::Name.first_name
   user = User.new()
@@ -64,22 +97,29 @@ end
 #                                      AdvSpace Data
 #######################################################################################################
 User.where(role_id: provider.id).all.each do |provider|
-  AdvSpace.create(name: user.organisation+" space", provider_id: provider.id)
+  AdvSpace.create(name: provider.organisation+" Space A", provider_id: provider.id)
+  AdvSpace.create(name: provider.organisation+" Space B", provider_id: provider.id)
 end
 
 #######################################################################################################
 #                                      Slot Data
 #######################################################################################################
 AdvSpace.all.each do |space|
-  2.times do |i|
-    Slot.create(
-      name: space.name+i.to_s,
-      status: "draft",
-      price: 100 * i,
-      provider_id: space.provider_id,
-      adv_space_id: space.id
-      )
-  end
+  slot = Slot.create(
+        status: "draft",
+        price: 100 ,
+        start_time: '2019-01-01 12:00:00',
+        end_time: '2019-01-01 13:00:00',
+        adv_space_id: space.id
+        )
+
+  slot = Slot.create(
+          status: "draft",
+          price: 150 ,
+          start_time: '2019-01-01 13:00:00',
+          end_time: '2019-01-01 15:00:00',
+          adv_space_id: space.id
+          )
 end
 
 #######################################################################################################

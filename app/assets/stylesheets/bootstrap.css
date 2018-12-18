@@ -5941,6 +5941,7 @@ button.close {
 .modal-title {
   margin: 0;
   line-height: 1.42857143;
+  text-align: left;
 }
 .modal-body {
   position: relative;

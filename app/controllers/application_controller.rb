@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token
   include SessionsHelper
 
   before_action :authenticate
@@ -12,5 +12,10 @@ class ApplicationController < ActionController::Base
       redirect_to sign_in_url, warning: 'You need to sign in first'
     end
   end
+
+  def errors(err)
+    "<ul><li>#{err.full_messages.join('</li><li>')}</li></ul>"
+  end
+
 
 end

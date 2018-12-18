@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :slots, through: :adv_spaces
   has_many :pre_booked_slots, class_name: 'Slot', foreign_key: :agent_id
   has_many :booked_slots, class_name: 'Slot', foreign_key: :organiser_id
-  has_many :bids
+  has_many :bids, foreign_key: :organiser_id
 
   before_save :init_encrypted_password
   after_save :clear_password
@@ -41,6 +41,10 @@ class User < ApplicationRecord
 
   def fullname
     "#{first_name.camelize} #{last_name.camelize}"
+  end
+
+  def max_bid_for_slot(slot)
+    bids.where(slot_id: slot.id).order(price: :desc).first&.price
   end
 
   private

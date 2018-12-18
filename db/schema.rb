@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "slots", force: :cascade do |t|
-    t.string "name"
     t.datetime "start_time"
     t.datetime "end_time"
     t.float "price"

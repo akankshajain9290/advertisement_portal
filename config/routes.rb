@@ -18,16 +18,19 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'home#dashboard'
 
   ##########################################################################################################
-  # Routes for Slots and Bids
+  # Routes for Slots
   ##########################################################################################################
-  resources :slots, except: :show do
-     resources :bids, only: [:create, :update]
-  end
+  resources :slots, except: :show
+
+  ##########################################################################################################
+  # Routes for Bids
+  ##########################################################################################################
+  resources :bids, only: [:create]
 
   ##########################################################################################################
   # Routes for Adv Spaces
   ##########################################################################################################
-  resources :adv_spaces, except: [:index, :show]
+  resources :adv_spaces, except: [:index, :show, :new]
 
   root 'home#dashboard'
 end
