@@ -7,6 +7,7 @@ class Slot < ApplicationRecord
   has_many :bids
 
   before_save :initialize_status
+  before_save :send_notifications
 
   before_destroy do
     cannot_delete_pre_booked_or_booked_slots
@@ -90,6 +91,16 @@ class Slot < ApplicationRecord
 
   def cannot_delete_pre_booked_or_booked_slots
     errors.add(:base, 'Cannot delete booked or pre_booked slots') if booked? || pre_booked?
+  end
+
+  def send_notifications
+    if self.status_changed? && self.pre_booked?
+      SlotsMailer.slot_pre_booked_for_agent(self).deliver_now
+      SlotsMailer.slot_pre_booked_for_provider(self).deliver_now
+    elsif self.status_changed? && self.booked?
+      SlotsMailer.slot_booked_for_agent(self).deliver_now
+      SlotsMailer.slot_booked_for_organiser(self).deliver_now
+    end
   end
 
 end
