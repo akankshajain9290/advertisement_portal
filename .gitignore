@@ -1,9 +1,10 @@
 tmp/
-config/database.yml
 advertisement_portal_development
 advertisement_portal_test
 log/
 public/
 
 # Ignore application configuration
-/config/application.yml
+config/application.yml
+config/secrets.yml
+config/database.yml
