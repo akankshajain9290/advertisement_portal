@@ -4,3 +4,6 @@ advertisement_portal_development
 advertisement_portal_test
 log/
 public/
+
+# Ignore application configuration
+/config/application.yml

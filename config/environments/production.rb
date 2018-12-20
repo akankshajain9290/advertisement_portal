@@ -1,4 +1,12 @@
 Rails.application.configure do
+  role :app, %w{ubuntu@ip-172-31-7-211}
+  role :web, %w{ubuntu@ip-172-31-7-211}
+  role :db,  %w{ubuntu@ip-172-31-7-211}
+  set :ssh_options, {
+     keys: %w(~/Documents/Akanksha/advertisement_portal/broxer.pem),
+     forward_agent: false,
+     auth_methods: %w(s)
+  }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
