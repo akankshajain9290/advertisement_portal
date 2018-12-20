@@ -1,4 +1,4 @@
-server '13.232.118.114', port: 22, roles: [:web, :app, :db], primary: true
+server '3.17.139.234', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:akankshajain9290/advertisement_portal.git'
 set :application,     'advertisement_portal'
@@ -7,7 +7,7 @@ set :user,            'ubuntu'
 set :stage,           :production
 set :deploy_to,       "/home/#{fetch(:user)}/#{fetch(:application)}"
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}_puma.sock"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
+set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa) }
 
 
 set :linked_files, %w{config/database.yml config/secrets.yml}
