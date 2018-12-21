@@ -1,4 +1,4 @@
-server '3.17.139.234', port: 22, roles: [:web, :app, :db], primary: true
+server '18.224.77.0', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:akankshajain9290/advertisement_portal.git'
 set :application,     'advertisement_portal'
