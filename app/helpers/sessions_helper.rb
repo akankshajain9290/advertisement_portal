@@ -1,5 +1,5 @@
 module SessionsHelper
-
+  # create session for a logged in user
   def sign_in (user)
     session[:user_id] = user.id
   end
